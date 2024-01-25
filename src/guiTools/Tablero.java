@@ -27,7 +27,6 @@ public class Tablero {
 		limpiaTablero();
 	}
 	
-	
 	public int getFila() {
 		return ultFila;
 	}
@@ -44,6 +43,34 @@ public class Tablero {
 		this.ultColumna = columna;
 	}
 
+	public char getEmptyCell() {
+		return emptyCell;
+	}
+
+	public void setEmptyCell(char emptyCell) {
+		this.emptyCell = emptyCell;
+	}
+
+	public char getHideCell() {
+		return hideCell;
+	}
+
+	public void setHideCell(char hideCell) {
+		this.hideCell = hideCell;
+	}
+
+	/**
+	 * Devuelve el caracter que contiene la celda direccionada
+	 * @param _fila
+	 * @param _columna
+	 * @return valor del caracter o chr$(0) si la combinación fila-columna no es válida
+	 */
+	public char leerCelda(int _fila,int _columna) {
+		if(_fila <tablero.length && _columna<tablero.length &&
+				   _fila >=0             && _columna>0) {
+		return tablero[_fila][_columna];}
+		else return (char) 0;
+	}
 	/**
 	 * Limpia el tablero dejándolo listo para unnuevo uso.
 	 */
@@ -59,6 +86,8 @@ public class Tablero {
 	 * @return true si está lleno y false si quedan celdas sin utilizar
 	 */
 	public boolean isFull() {
+		
+		
 		return (nfichas == this.tablero[0].length * this.tablero.length)?true:false;
 	}
 	/**
@@ -66,7 +95,17 @@ public class Tablero {
 	 * @return true , no hay ninguna ficha, false en caso contrario.
 	 */
 	public boolean isEmpty() {
-		return (nfichas == 0)?true:false;
+		boolean res = true;
+		for (int i=0;i<tablero.length;i++) {
+			for (int j=0;j<tablero[0].length;j++) {
+				if (tablero[i][j] != emptyCell) {
+					res = false;
+					break;
+				}
+				if (!res) break;
+			}
+		}	
+		return res;
 	}
 
 

@@ -101,16 +101,16 @@ public class LigthsOut {
 	
 	public void invierte(int fila, int columna) {
 		// TODO implementar la inversión con tryCatch
-		/*
+		
 		try {
 			char celda;
-			if (tlo.leeCelda(fila,columna)==tlo.getemptyCell)
+			if (tlo.leerCelda(fila,columna)==tlo.getEmptyCell())
 				celda = 'X';
-			else tlo.marcarCelda(fila, columna, tlo.getemptyCell());
+			else tlo.marcarCelda(fila, columna, tlo.getEmptyCell());
 		} catch (ArrayIndexOutOfBoundsException e){
 				// no hacemos nada
 		}
-		*/
+		
 	}
 	
 }
