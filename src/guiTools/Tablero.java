@@ -28,7 +28,7 @@ public class Tablero {
 	}
 	
 	public int getFila() {
-		return pepe;
+		return pepe;     
 	}
 
 	public void setFila(int fila) {
