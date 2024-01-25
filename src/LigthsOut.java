@@ -4,7 +4,7 @@ import guiTools.Tablero;
 public class LigthsOut {
 
 	
-	private Menu menuPrincipal;						// Menú para gestionar el juego
+	private Menu menuPrincipal;						// Menï¿½ para gestionar el juego
 	private int movimientos;						// Movimientos en un partida
 	private Tablero tlo = new Tablero(5,5,true);	// Tablero de 5X5 descubierto
 	
@@ -20,12 +20,12 @@ public class LigthsOut {
 
 		LigthsOut lo = new LigthsOut();
 		lo.nuevaPartida();
-		System.out.println("\nAplicación terminada");
+		System.out.println("\nAplicaciÃ³n terminada");
 	}
 
 	public void nuevaPartida() {
 		
-	// -------------- Inicialización de la partida
+	// -------------- Inicializaciï¿½n de la partida
 
 		String [] opcs = {"Nueva Partida","Tabla de Puntuaciones"};
 		this.menuPrincipal = new Menu ();
@@ -39,13 +39,12 @@ public class LigthsOut {
 			switch(result) {
 				
 				case 1:	// iniciar partida
-					System.out.println("\n WIP \n");	
 					this.playTheGame();
 					break;
 				case 2: // Creditos
 					System.out.println("\n1 TBP \n");
 					break;
-				case 0: // salir aplicación
+				case 0: // salir aplicaciï¿½n
 					finSesion= true;
 				
 			} // switch
@@ -64,6 +63,7 @@ public class LigthsOut {
 			
 			tlo.mostrarTablero();
 			tlo.leeMovimiento();
+			this.procesa();
 			if (tlo.isEmpty()){
 				finJuego=true;
 			}
@@ -80,14 +80,37 @@ public class LigthsOut {
 	 */
 	public void setNivel() {
 		
-		int[][] nivel1 = {{1,1},{0,4},{3,3},{4,0}};
+		int[][] nivel1 = {{1,1},{0,4},{3,3},{3,4}};
 		
 		for(int i=0;i<nivel1.length;i++) {
 			
 			tlo.marcarCelda(nivel1[i][0], nivel1[i][1], 'X');
 		}
 		
+	} // setNivel
+	
+	public void procesa() {
+		
+		invierte(tlo.getFila(),tlo.getColumna());
+		invierte(tlo.getFila()+1,tlo.getColumna());
+		invierte(tlo.getFila()-1,tlo.getColumna());
+		invierte(tlo.getFila(),tlo.getColumna()+1);
+		invierte(tlo.getFila(),tlo.getColumna()-1);
+		
 	}
 	
+	public void invierte(int fila, int columna) {
+		// TODO implementar la inversiÃ³n con tryCatch
+		/*
+		try {
+			char celda;
+			if (tlo.leeCelda(fila,columna)==tlo.getemptyCell)
+				celda = 'X';
+			else tlo.marcarCelda(fila, columna, tlo.getemptyCell());
+		} catch (ArrayIndexOutOfBoundsException e){
+				// no hacemos nada
+		}
+		*/
+	}
 	
 }

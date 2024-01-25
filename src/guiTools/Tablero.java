@@ -27,6 +27,7 @@ public class Tablero {
 		limpiaTablero();
 	}
 	
+	
 	public int getFila() {
 		return ultFila;
 	}
