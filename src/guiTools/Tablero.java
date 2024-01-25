@@ -6,7 +6,7 @@ public class Tablero {
 
 	private char[][] tablero;
 	private boolean[][] visible; // Indica si la celda se visualiza o no
-	private int ultFila;  // Úlitma elección del jugador
+	private int pepe;  // Úlitma elección del jugador
 	private int ultColumna;// Úlitma elección del jugador
 	private int nfichas; //numero fichas puestas en tablero
 	private char emptyCell = ' '; // valor que identifica el estado vacío
@@ -28,11 +28,11 @@ public class Tablero {
 	}
 	
 	public int getFila() {
-		return ultFila;
+		return pepe;
 	}
 
 	public void setFila(int fila) {
-		this.ultFila = fila;
+		this.pepe = fila;
 	}
 
 	public int getColumna() {
@@ -149,7 +149,7 @@ public class Tablero {
 			System.out.print("\nEscribe la posición vertical (🡳): ");
 			b = sc.nextInt();		
 			if(a<=tablero.length && b<=tablero.length && b>0 && a>0) {
-				this.ultFila = a-1;
+				this.pepe = a-1;
 				this.ultColumna = b-1;
 				salir = true;
 			} else {
