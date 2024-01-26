@@ -65,11 +65,10 @@ public class Tablero {
 	 * @param _columna
 	 * @return valor del caracter o chr$(0) si la combinación fila-columna no es válida
 	 */
-	public char leerCelda(int _fila,int _columna) {
-		if(_fila <tablero.length && _columna<tablero.length &&
-				   _fila >=0             && _columna>0) {
-		return tablero[_fila][_columna];}
-		else return (char) 0;
+	public char leerCelda(int _fila,int _columna) throws ArrayIndexOutOfBoundsException  {
+
+		return tablero[_fila][_columna];
+
 	}
 	/**
 	 * Limpia el tablero dejándolo listo para unnuevo uso.
@@ -123,10 +122,12 @@ public class Tablero {
 			System.out.print("|"+ (i+1)+"| ");
 			for(int j=0; j<tablero.length; j++) {
 				if (visible[i][j]) // Si está visible
-				System.out.print("["+tablero[i][j] + "]");
-				else
-				System.out.print("["+this.hideCell + "]");
-				
+//				System.out.print("["+tablero[i][j] + "]");
+//				else
+//				System.out.print("["+this.hideCell + "]");
+					System.out.print("("+tablero[i][j] + ")");
+					else
+					System.out.print("("+this.hideCell + ")");				
 			} // columnas
 			System.out.println();
 		} // filas
@@ -168,12 +169,9 @@ public class Tablero {
 	 */
 	public void marcarCelda(int _fila, int _columna, char valor) {
 		
-		if(_fila <tablero.length && _columna<tablero.length &&
-		   _fila >=0             && _columna>0) {
 		tablero [_fila][_columna] = valor;
 		visible [_fila][_columna] = true;
 		nfichas++;
-		}
 	}
 	
 	/**

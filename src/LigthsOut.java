@@ -67,12 +67,13 @@ public class LigthsOut {
 			if (tlo.isEmpty()){
 				finJuego=true;
 			}
-			else this.movimientos++;
+			this.movimientos++;
 			
 			
 		} // while !finJuego
-		System.out.println("Nivel terminado en :" + this.getMovimientos() + "!" +
-		"\n***********************************************\n");
+		System.out.println("***********************************************\n"
+				+          "Nivel terminado en : " + this.getMovimientos() + " movimientos !" +
+		                 "\n***********************************************\n");
 	} // PlayTheGame
 	
 	/**
@@ -80,7 +81,7 @@ public class LigthsOut {
 	 */
 	public void setNivel() {
 		
-		int[][] nivel1 = {{1,1},{0,4},{3,3},{3,4}};
+		int[][] nivel1 = {{2,0},{2,2},{2,4}};
 		
 		for(int i=0;i<nivel1.length;i++) {
 			
@@ -92,23 +93,28 @@ public class LigthsOut {
 	public void procesa() {
 		
 		invierte(tlo.getFila(),tlo.getColumna());
-		invierte(tlo.getFila()+1,tlo.getColumna());
-		invierte(tlo.getFila()-1,tlo.getColumna());
-		invierte(tlo.getFila(),tlo.getColumna()+1);
-		invierte(tlo.getFila(),tlo.getColumna()-1);
-		
+
+			invierte(tlo.getFila()+1,tlo.getColumna());
+			invierte(tlo.getFila()-1,tlo.getColumna());
+			invierte(tlo.getFila(),tlo.getColumna()+1);
+			invierte(tlo.getFila(),tlo.getColumna()-1);
+
 	}
 	
 	public void invierte(int fila, int columna) {
-		// TODO implementar la inversión con tryCatch
-		
-		
+		try {				
 			char celda= tlo.leerCelda(fila,columna);
-			if (celda != (char) 0) {
-				if (celda ==tlo.getEmptyCell())
-					celda = 'X';
-				else tlo.marcarCelda(fila, columna, tlo.getEmptyCell());	
-			}
+			if (celda ==tlo.getEmptyCell())
+				celda = 'X';
+			else
+				celda = tlo.getEmptyCell();
+			tlo.marcarCelda(fila, columna, celda);	
+	
+		}
+	catch (Exception e) {
+		
+		
+	}
 			
 	}
 	
