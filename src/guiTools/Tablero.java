@@ -6,18 +6,18 @@ public class Tablero {
 
 	private char[][] tablero;
 	private boolean[][] visible; // Indica si la celda se visualiza o no
-	private int pepe;  // Ãšlitma elecciÃ³n del jugador
-	private int ultColumna;// Ãšlitma elecciÃ³n del jugador
+	private int ultFila;  // Úlitma elección del jugador
+	private int ultColumna;// Úlitma elección del jugador
 	private int nfichas; //numero fichas puestas en tablero
-	private char emptyCell = ' '; // valor que identifica el estado vacÃ­o
+	private char emptyCell = ' '; // valor que identifica el estado vacío
 	private char hideCell ='?'; // Valor para la celda no visible
-	private boolean estado = true;  // Modo de visualizaciÃ³n de celdas true = visible // false =invisible
+	private boolean estado = true;  // Modo de visualización de celdas true = visible // false =invisible
 
 	
 	/**
-	 * Crea una estructura tablero vacÃ­a
-	 * @param filas nÃºmero de filas
-	 * @param columnas nÃºmero de columnas
+	 * Crea una estructura tablero vacía
+	 * @param filas número de filas
+	 * @param columnas número de columnas
 	 * @param _estado Tablero con celdas visibles : true si, false no
 	 */
 	public Tablero(int filas, int columnas,boolean _estado) {
@@ -26,52 +26,35 @@ public class Tablero {
 		this.estado = _estado;
 		limpiaTablero();
 	}
-	
-	public int getFila() {
-		return pepe;     
-	}
-
-	public void setFila(int fila) {
-		this.pepe = fila;
-	}
-
-	public int getColumna() {
-		return ultColumna;
-	}
-
-	public void setColumna(int columna) {
-		this.ultColumna = columna;
-	}
-
-	public char getEmptyCell() {
-		return emptyCell;
-	}
-
-	public void setEmptyCell(char emptyCell) {
-		this.emptyCell = emptyCell;
-	}
-
-	public char getHideCell() {
-		return hideCell;
-	}
-
-	public void setHideCell(char hideCell) {
-		this.hideCell = hideCell;
-	}
+	public int getNumFilas() {return this.tablero.length;}
+	public int getNumColumnas() {return this.tablero[0].length;}
+	public int getFila() {	return ultFila;	}
+	public void setFila(int fila) {	this.ultFila = fila;}
+	public int getColumna() {return ultColumna;	}
+	public void setColumna(int columna) {this.ultColumna = columna;	}
+	public char getEmptyCell() {return emptyCell;	}
+	public void setEmptyCell(char emptyCell) {	this.emptyCell = emptyCell;	}
+	public char getHideCell() {return hideCell;	}
+	public void setHideCell(char hideCell) {this.hideCell = hideCell;	}
 
 	/**
 	 * Devuelve el caracter que contiene la celda direccionada
 	 * @param _fila
 	 * @param _columna
-	 * @return valor del caracter o chr$(0) si la combinaciÃ³n fila-columna no es vÃ¡lida
+	 * @return valor del caracter o chr$(0) si la combinación fila-columna no es válida
 	 */
 	public char leerCelda(int _fila,int _columna) throws ArrayIndexOutOfBoundsException  {
-
 		return tablero[_fila][_columna];
-
 	}
+	public boolean leerEstadoCelda(int _fila,int _columna) throws ArrayIndexOutOfBoundsException  {
+		return visible[_fila][_columna];
+	}
+	public void setEstadoCelda(int _fila,int _columna, boolean estado) throws ArrayIndexOutOfBoundsException  {
+		visible[_fila][_columna]= estado;
+	}
+	
 	/**
-	 * Limpia el tablero dejÃ¡ndolo listo para unnuevo uso.
+	 * Limpia el tablero dejándolo listo para unnuevo uso.
 	 */
 	public void limpiaTablero() {
 		
@@ -81,12 +64,10 @@ public class Tablero {
 	}
 	
 	/**
-	 * En funciÃ³n del valor del contador de fichas devuelve un valor boleano
-	 * @return true si estÃ¡ lleno y false si quedan celdas sin utilizar
+	 * En función del valor del contador de fichas devuelve un valor boleano
+	 * @return true si está lleno y false si quedan celdas sin utilizar
 	 */
 	public boolean isFull() {
-		
-		
 		return (nfichas == this.tablero[0].length * this.tablero.length)?true:false;
 	}
 	/**
@@ -107,37 +88,33 @@ public class Tablero {
 		return res;
 	}
 
-
 	/**
 	 * Muestra el contenido del tablero en cualquiera de sus modos.
 	 */
 	public void mostrarTablero() {
 		System.out.println();
 		System.out.print("    ");
-		for(int j=0; j<tablero.length; j++) {
+		for(int j=0; j<this.getNumColumnas(); j++) {
 			System.out.print("|"+(j+1) + "|");
 		} // columnas
 		System.out.println();
-		for(int i=0; i<tablero.length; i++) {
+		for(int i=0; i<this.getNumFilas(); i++) {
 			System.out.print("|"+ (i+1)+"| ");
-			for(int j=0; j<tablero.length; j++) {
-				if (visible[i][j]) // Si estÃ¡ visible
-//				System.out.print("["+tablero[i][j] + "]");
-//				else
-//				System.out.print("["+this.hideCell + "]");
+			for(int j=0; j<this.getNumColumnas(); j++) {
+				if (visible[i][j]) // Si está visible
 					System.out.print("("+tablero[i][j] + ")");
-					else
+				else
 					System.out.print("("+this.hideCell + ")");				
 			} // columnas
 			System.out.println();
 		} // filas
 		System.out.println();
-	} // mostrat tablero
+	} // mostrar tablero
 
 /**
  * Permite introducir por teclado las coordenadas de la casilla
- * que elegirÃ¡ el usuario
- * Se actualizarÃ¡n los atributos fila y columna del objeto con la elecciÃ³n
+ * que elegirá el usuario
+ * Se actualizarán los atributos fila y columna del objeto con la elección
  */
 	public void leeMovimiento() {
 		Scanner sc = new Scanner(System.in);
@@ -145,16 +122,16 @@ public class Tablero {
 		boolean salir = false;
 		while(!salir) {
 			
-			System.out.printf("\nEscribe la posiciÃ³n horizontal (ðŸ¡²): ") ;
+			System.out.printf("\nEscribe la posición horizontal (?): ") ;
 			a = sc.nextInt();
-			System.out.print("\nEscribe la posiciÃ³n vertical (ðŸ¡³): ");
+			System.out.print("\nEscribe la posición vertical (?): ");
 			b = sc.nextInt();		
-			if(a<=tablero.length && b<=tablero.length && b>0 && a>0) {
-				this.pepe = a-1;
+			if(a<=tablero.length && b<=tablero[0].length && b>0 && a>0) {
+				this.ultFila = a-1;
 				this.ultColumna = b-1;
 				salir = true;
 			} else {
-				System.out.printf("\nError. La casilla estÃ¡ fuera del tablero, vuelve a intentarlo con valores entre %d y %d.\n", 1, tablero.length);
+				System.out.printf("\nError. La casilla está fuera del tablero, vuelve a intentarlo con valores entre %d y %d.\n", 1, tablero.length);
 			}
 		} // While de lectura
 		
@@ -163,23 +140,23 @@ public class Tablero {
 	/**
 	 * Establece un valor para una celda apuntada
 	 * por los valores fila , columna del objeto.
-	 * Si las coordenadas estÃ¡n fuera del tablero no hace nada
-	 * Si la operaciÃ³n es correcta actualiza el contador interno de fichas.
+	 * Si las coordenadas están fuera del tablero no hace nada
+	 * Si la operación es correcta actualiza el contador interno de fichas.
 	 * @param valor valor de la celda
 	 */
-	public void marcarCelda(int _fila, int _columna, char valor) {
+	public void marcarCelda(int _fila, int _columna, char valor) throws ArrayIndexOutOfBoundsException {
 		
 		tablero [_fila][_columna] = valor;
 		visible [_fila][_columna] = true;
 		nfichas++;
-	}
+	}// marcarCelda
 	
 	/**
 	 * Inicializa toda la rejilla de celdas del tablero
 	 */
 	private void borrarCeldas() {
 		for(int i=0; i<tablero.length; i++) {
-			for(int j=0; j<tablero.length; j++) {
+			for(int j=0; j<tablero[0].length; j++) {
 				tablero[i][j] = this.emptyCell;
 			}
 		}
@@ -189,14 +166,12 @@ public class Tablero {
 	 * Inicializa el estado de la rejilla de visibilidad
 	 */
 	private void initEstado() {
-		for(int i=0; i<visible.length; i++) {
-			for(int j=0; j<visible.length; j++) {
+		for(int i=0; i<this.getNumFilas(); i++) {
+			for(int j=0; j<this.getNumColumnas(); j++) {
 				visible[i][j] = this.estado;
 			}
 		}
 	} // initEstado
-	
-	
 	
 	
 } // Class Tablero
