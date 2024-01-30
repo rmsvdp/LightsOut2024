@@ -8,13 +8,9 @@ public class LigthsOut {
 	private int movimientos;						// Movimientos en un partida
 	private Tablero tlo = new Tablero(5,5,true);	// Tablero de 5X5 descubierto
 	
-	public int getMovimientos() {
-		return movimientos;
-	}
+	public int getMovimientos() {return movimientos;	}
 
-	public void setMovimientos(int movimientos) {
-		this.movimientos = movimientos;
-	}
+	public void setMovimientos(int movimientos) {	this.movimientos = movimientos;	}
 
 	public static void main(String[] args) {
 
@@ -25,8 +21,7 @@ public class LigthsOut {
 
 	public void nuevaPartida() {
 		
-	// -------------- Inicializaci�n de la partida
-
+	// -------------- Inicialización de la partida
 		String [] opcs = {"Nueva Partida","Tabla de Puntuaciones"};
 		this.menuPrincipal = new Menu ();
 		boolean finSesion = false;
@@ -36,8 +31,7 @@ public class LigthsOut {
 		while (!finSesion) {
 			menuPrincipal.mostrarMenu();
 			result = menuPrincipal.eligeOpcion();
-			switch(result) {
-				
+			switch(result) {			
 				case 1:	// iniciar partida
 					this.playTheGame();
 					break;
@@ -46,7 +40,6 @@ public class LigthsOut {
 					break;
 				case 0: // salir aplicaci�n
 					finSesion= true;
-				
 			} // switch
 		} // while !finSesion
 	} // JuegaPartida
@@ -54,22 +47,19 @@ public class LigthsOut {
 	public void playTheGame() {
 		
 
-		boolean finJuego = false;
+		boolean finJuego = false;		// Variable para determinar el fin de la partida
 		
 		this.movimientos = 0;
 		tlo.limpiaTablero();
-		setNivel();
+		setNivel();						// Elige un nivel y rellena el tablero
 		while (!finJuego) {
-			
-			tlo.mostrarTablero();
-			tlo.leeMovimiento();
-			this.procesa();
-			if (tlo.isEmpty()){
-				finJuego=true;
+			tlo.mostrarTablero();		// Pintar tablero
+			tlo.leeMovimiento();		// Pedir movimiento al usuario
+			this.procesaMovimiento();	// Activar/desactivar luces a partir del movimiento
+			if (tlo.isEmpty()){			// Si el tablero esta apagado ...
+				finJuego=true;			// he completado el nivel
 			}
-			this.movimientos++;
-			
-			
+			this.movimientos++;			// actualizar numero de movimientos
 		} // while !finJuego
 		System.out.println("***********************************************\n"
 				+          "Nivel terminado en : " + this.getMovimientos() + " movimientos !" +
@@ -81,26 +71,29 @@ public class LigthsOut {
 	 */
 	public void setNivel() {
 		
-		int[][] nivel1 = {{2,0},{2,2},{2,4}};
+		int[][] nivel1 = {{2,0},{2,2},{2,4}};  // Solo almaceno las casillas encendidas
 		
 		for(int i=0;i<nivel1.length;i++) {
-			
-			tlo.marcarCelda(nivel1[i][0], nivel1[i][1], 'X');
+			tlo.marcarCelda(nivel1[i][0], nivel1[i][1], 'X'); // Activo las casillas
 		}
-		
 	} // setNivel
 	
-	public void procesa() {
+	public void procesaMovimiento() {
 		
-		invierte(tlo.getFila(),tlo.getColumna());
-
-			invierte(tlo.getFila()+1,tlo.getColumna());
-			invierte(tlo.getFila()-1,tlo.getColumna());
-			invierte(tlo.getFila(),tlo.getColumna()+1);
-			invierte(tlo.getFila(),tlo.getColumna()-1);
+		invierte(tlo.getFila(),tlo.getColumna());			// Celda elegida
+			invierte(tlo.getFila()+1,tlo.getColumna());		// Celda Abajo
+			invierte(tlo.getFila()-1,tlo.getColumna());		// Celda Arriba
+			invierte(tlo.getFila(),tlo.getColumna()+1);		// Celda Derecha
+			invierte(tlo.getFila(),tlo.getColumna()-1);		// Celda Izquierda
 
 	}
-	
+	/**
+	 * Invierte la celda elegida, si estaba encendida la apaga y viceversa.
+	 * Importante , es preciso capturar la excepcción que se producirá 
+	 * si alguna de las celdas adyacentes se encuentra fuera del tablero
+	 * @param fila		Fila de la elección
+	 * @param columna	columna de la elección
+	 */
 	public void invierte(int fila, int columna) {
 		try {				
 			char celda= tlo.leerCelda(fila,columna);
@@ -109,13 +102,11 @@ public class LigthsOut {
 			else
 				celda = tlo.getEmptyCell();
 			tlo.marcarCelda(fila, columna, celda);	
-	
 		}
 	catch (Exception e) {
-		
-		
-	}
+		// No hacer nada, es como si no se hubiese pedido su inversión
+	} 
 			
-	}
+	}// invierte
 	
-}
+} // Class
